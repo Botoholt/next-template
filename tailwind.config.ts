@@ -8,7 +8,12 @@ export default {
       fontFamily: {
         primary: ["Inter", ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        "primary-color": "var(--primary-color)",
+        "app-bg": "var(--app-bg)",
+      },
     },
   },
   plugins: [],
+  darkMode: "class",
 } satisfies Config
