@@ -1,18 +1,8 @@
+import createNextIntlPlugin from "next-intl/plugin"
+const withNextIntl = createNextIntlPlugin("./src/shared/lib/i18n.ts")
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  eslint: {
-    dirs: ["src"],
-  },
-
-  reactStrictMode: true,
-  swcMinify: true,
-
-  // images: {
-  //   domains: [
-  //     "static-cdn.jtvnw.net",
-  //   ],
-  // },
-  //
+const config = {
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.(".svg"))
@@ -27,13 +17,9 @@ const nextConfig = {
       // Convert all other *.svg imports to React components
       {
         test: /\.svg$/i,
-        issuer: { not: /\.(css|scss|sass)$/ },
-        resourceQuery: { not: /url/ }, // exclude if *.svg?url
-        loader: "@svgr/webpack",
-        options: {
-          dimensions: false,
-          titleProp: true,
-        },
+        issuer: fileLoaderRule.issuer,
+        resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
+        use: ["@svgr/webpack"],
       },
     )
 
@@ -42,6 +28,19 @@ const nextConfig = {
 
     return config
   },
+
+  eslint: {
+    dirs: ["src"],
+  },
+
+  reactStrictMode: true,
+  swcMinify: true,
+
+  // images: {
+  //   domains: [
+  //     "static-cdn.jtvnw.net",
+  //   ],
+  // },
 }
 
-export default nextConfig
+export default withNextIntl(config)
