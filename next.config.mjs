@@ -1,3 +1,6 @@
+import createNextIntlPlugin from "next-intl/plugin"
+const withNextIntl = createNextIntlPlugin("./src/shared/lib/i18n.ts")
+
 /** @type {import('next').NextConfig} */
 const config = {
   webpack(config) {
@@ -40,4 +43,4 @@ const config = {
   // },
 }
 
-export default config
+export default withNextIntl(config)

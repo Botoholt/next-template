@@ -2,21 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --app-bg: #ffffff;
-  --primary-color: #000000;
-}
-
-[data-theme="dark"] {
-  --app-bg: #000000;
-  --primary-color: #ffffff;
-}
-
 *,
 body,
 *::after,
 *::before {
   font-size: 1rem;
   line-height: 1.5;
-  color: var(--primary-color);
+  color: rgb(var(--color-primary-text));
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
 }

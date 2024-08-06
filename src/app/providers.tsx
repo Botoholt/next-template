@@ -1,11 +1,23 @@
 "use client"
 
+import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl"
 import { ThemeProvider } from "next-themes"
+import { ReactNode } from "react"
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  locale,
+  children,
+  messages,
+}: {
+  children: ReactNode
+  locale: string
+  messages: AbstractIntlMessages
+}) {
   return (
-    <ThemeProvider disableTransitionOnChange defaultTheme="system" attribute="data-theme">
-      {children}
-    </ThemeProvider>
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <ThemeProvider disableTransitionOnChange defaultTheme="system" attribute="data-theme">
+        {children}
+      </ThemeProvider>
+    </NextIntlClientProvider>
   )
 }
